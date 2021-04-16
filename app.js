@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+// Express JS middleware implementing sign on for Express web apps using OpenID Connect.
 const { auth, requiresAuth } = require('express-openid-connect');
 
+// Trying to make baseURL something different in the .env
 app.use(
   auth({
     authRequired: false,
