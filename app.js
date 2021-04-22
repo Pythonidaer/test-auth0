@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? console.log('Logged in') : console.log('Logged out'));
 });
 
-const port = process.env.JAWS_DB || 3000;
+const port = process.env.JAWSDB_URL || 3000;
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
