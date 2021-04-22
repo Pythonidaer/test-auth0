@@ -7,6 +7,13 @@ require('dotenv').config();
 // Express JS middleware implementing sign on for Express web apps using OpenID Connect
 const { auth, requiresAuth } = require('express-openid-connect');
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+//  redirect our pages
+// app.use(express.static('public'));
+// app.use(express.static(path.join(__dirname, 'public')));
+
 // With this basic config, our app requires authentication for all routes and stores the user's identity in an encrypted and signed cookie
 app.use(
   auth({
@@ -20,12 +27,8 @@ app.use(
   })
 );
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.get('/', (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? console.log('Logged in') : console.log('Logged out'));
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
 const port = process.env.JAWSDB_URL || 3000;
