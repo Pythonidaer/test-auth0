@@ -1,3 +1,6 @@
+// path is a node module used for handling and transforming file paths.
+const path = require('path');
+// express web app framework let's us structure and handle numerous http requests at specific urls.
 const express = require('express');
 const app = express();
 require('dotenv').config();
@@ -17,11 +20,16 @@ app.use(
   })
 );
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+    res.send(req.oidc.isAuthenticated() ? console.log('Logged in') : console.log('Logged out'));
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.JAWS_DB || 3000;
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
 });
